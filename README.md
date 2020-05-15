@@ -9,6 +9,14 @@ chmod u+x install.sh
 ./install.sh
 ```
 
+## Building Docker image
+
+```docker build -t C2concealer .```
+
+## Running with Docker
+
+```docker container run -it -v <cobalt_strike_location>:/usr/share/cobaltstrike/ C2concealer --hostname google.com --variant 3```
+
 ## Example Usage
 
 ```bash
