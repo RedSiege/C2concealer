@@ -97,12 +97,13 @@ func_apache_check(){
 }
 
 func_install_letsencrypt(){
-  echo '[Starting] cloning into letsencrypt!'
-  git clone https://github.com/certbot/certbot /opt/letsencrypt
+   echo '[Starting] snap install certbot'
+   snap install --classic certbot
+   echo '[Starting] link certbot'
+   sudo ln -s /snap/bin/certbot /usr/bin/certbot
   echo '[Success] letsencrypt is built!'
-  cd /opt/letsencrypt
   echo '[Starting] to build letsencrypt cert!'
-  ./letsencrypt-auto --apache -d $domain -n --register-unsafely-without-email --agree-tos 
+  certbot --apache -d $domain -n --register-unsafely-without-email --agree-tos 
   if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
     echo '[Success] letsencrypt certs are built!'
     service apache2 stop
