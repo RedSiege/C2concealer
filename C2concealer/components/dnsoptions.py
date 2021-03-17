@@ -75,7 +75,8 @@ class dnsOptions(object):
 		'''
 
 		profileString = ''
+		profileString += 'dns-beacon {\n'
 		for attr, value in self.__dict__.items():
-			profileString += 'set ' + attr + ' "' + value + '";\n'
-		profileString += '\n'
+			profileString += '\tset ' + attr + ' "' + value + '";\n'
+		profileString += '}\n\n'
 		return profileString 
