@@ -22,12 +22,21 @@ class dnsOptions(object):
 	'''
 
 	def __init__(self):
-		self.dns_idle = None
-		self.dns_stager_subhost = None
-		self.maxdns = None
-		self.dns_sleep = None
-		self.dns_ttl = None
-		self.dns_max_txt = None
+        self.dns_idle = None
+        self.dns_stager_subhost = None
+        #self.dns_stager_prepend = None
+        self.maxdns = None
+        self.dns_sleep = None
+        self.dns_ttl = None
+        self.dns_max_txt = None
+        #These are added in 4.3
+        self.beacon = None
+        self.get_A = None
+        self.get_AAAA = None
+        self.get_TXT = None
+        self.put_metadata = None
+        self.put_output = None
+        self.ns_response = "zero"
 
 	def randomizer(self):
 		
@@ -57,6 +66,14 @@ class dnsOptions(object):
 		self.dns_max_txt = str(252)
 		self.dns_ttl = str(3600)
 
+        # After 4.3
+        self.beacon = str(random.choice(dns.subdomains)) + "."
+        self.get_A = str(random.choice(dns.subdomains)) + "."
+        self.get_AAAA = str(random.choice(dns.subdomains)) + "."
+        self.get_TXT = str(random.choice(dns.subdomains)) + "."
+        self.put_metadata = str(random.choice(dns.subdomains)) + "."
+        self.put_output = str(random.choice(dns.subdomains)) + "."
+
 
 	def printify(self):
 
@@ -74,8 +91,8 @@ class dnsOptions(object):
 
 		'''
 
-		profileString = ''
-		for attr, value in self.__dict__.items():
-			profileString += 'set ' + attr + ' "' + value + '";\n'
-		profileString += '\n'
-		return profileString 
+		profileString = '''dns-beacon {\n'''
+        for attr, value in self.__dict__.items():
+            profileString += 'set ' + attr + ' "' + value + '";\n'
+        profileString += '}\n\n'
+        return profileString 
