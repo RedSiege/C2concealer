@@ -67,12 +67,12 @@ class dnsOptions(object):
         self.dns_ttl = str(3600)
 
         # After 4.3
-        self.beacon = str(random.choice(dns.subdomains)) + "."
-        self.get_A = str(random.choice(dns.subdomains)) + "."
-        self.get_AAAA = str(random.choice(dns.subdomains)) + "."
-        self.get_TXT = str(random.choice(dns.subdomains)) + "."
-        self.put_metadata = str(random.choice(dns.subdomains)) + "."
-        self.put_output = str(random.choice(dns.subdomains)) + "."
+        self.beacon = str(random.choice(dns.normal_subdomains)) + "."
+        self.get_A = str(random.choice(dns.normal_subdomains)) + "."
+        self.get_AAAA = str(random.choice(dns.normal_subdomains)) + "."
+        self.get_TXT = str(random.choice(dns.normal_subdomains)) + "."
+        self.put_metadata = str(random.choice(dns.normal_subdomains)) + "."
+        self.put_output = str(random.choice(dns.normal_subdomains)) + "."
 
 
     def printify(self):
