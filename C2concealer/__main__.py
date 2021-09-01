@@ -44,7 +44,7 @@ def main():
 	filled with randomized data for use with Cobalt Strike.")
 	parser.add_argument('-h', '-?', '--h', '-help', '--help', action="store_true",
 	help=argparse.SUPPRESS)
-	parser.add_argument('--variants', type=int, help="Enter the count of http client/server \
+	parser.add_argument('--variants', default=1, type=int, help="Enter the count of http client/server \
 		variants to create.")
 	parser.add_argument('--hostname', type=str, help="Enter the hostname used for domain fronting or redirection")
 	#parser.add_argument('--debug', action='store_true')
