@@ -32,7 +32,7 @@ class Profile(object):
 
 	def __init__(self, ssl_dict, name='default', hostname=None):
 		self.globalOptions = globaloptions.globalOptions()
-		self.dnsOptions = dnsoptions.dnsOptions() 
+		self.dnsOptions = dnsoptions.dnsOptions(name)
 		self.smbOptions = smboptions.smbOptions()
 		self.sslOptions = ssloptions.sslOptions(ssl_dict)
 		self.httpConfig = httpconfig.httpConfig()
@@ -45,7 +45,7 @@ class Profile(object):
 		self.stageBlock = stageblock.stageBlock()
 		self.processInject = processinject.processInject()
 		self.postEx = postex.postEx()
-		self.componentOrder = ['globalOptions', 'dnsOptions', 'smbOptions', 'sslOptions', 'httpConfig','getClient', 'getServer',\
+		self.componentOrder = ['globalOptions', 'smbOptions', 'sslOptions', 'httpConfig', 'dnsOptions', 'getClient', 'getServer',\
 		'postClient', 'postServer', 'stagerClient', 'stagerServer', 'stageBlock', 'processInject', 'postEx']
 		self.profileString = ""
 
@@ -175,7 +175,7 @@ class Profile(object):
 		String stored in self.profileString.
 
 		'''
-		self.componentOrder = ['getClient', 'getServer','postClient', 'postServer', 'stagerClient', 'stagerServer']
+		self.componentOrder = ['dnsOptions', 'getClient', 'getServer','postClient', 'postServer', 'stagerClient', 'stagerServer']
 		for component in self.componentOrder:
 			val = getattr(self,component)
 			self.profileString += val.printify()
@@ -194,5 +194,3 @@ class Profile(object):
 				self.profileString += '\n'
 			else:
 				self.profileString += val.printify()
-		
-	

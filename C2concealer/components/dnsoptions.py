@@ -21,7 +21,7 @@ class dnsOptions(object):
 
     '''
 
-    def __init__(self):
+    def __init__(self, name):
         self.dns_idle = None
         self.dns_stager_subhost = None
         #self.dns_stager_prepend = None
@@ -37,6 +37,7 @@ class dnsOptions(object):
         self.put_metadata = None
         self.put_output = None
         self.ns_response = "zero"
+        self.name = name
 
     def randomizer(self):
         
@@ -91,8 +92,11 @@ class dnsOptions(object):
 
         '''
 
-        profileString = '''dns-beacon {\n'''
+        profileString = ''
+        profileString += 'dns-beacon "' + self.name + '" {\n\n'
         for attr, value in self.__dict__.items():
-            profileString += 'set ' + attr + ' "' + value + '";\n'
+            if (attr == 'name'): continue
+            profileString += '\tset ' + attr + ' "' + value + '";\n'
+        profileString += '\n'
         profileString += '}\n\n'
-        return profileString 
+        return profileString
