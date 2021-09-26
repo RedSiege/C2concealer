@@ -1,0 +1,5 @@
+*.swp
+*.swo
+__pycache__/
+*.profile
+C2concealer.egg-info/
