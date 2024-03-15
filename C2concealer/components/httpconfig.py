@@ -16,7 +16,10 @@ class httpConfig(object):
 	HTTP header to determine the remote address of a request. Use this option if your 
 	Cobalt Strike server is behind an HTTP redirector."
 
-	We've left it out and haven't had any issues. Guessing the default is fine.
+        We've left it out and haven't had any issues. You'll want to use it if your team server
+        is behind a redirector. If you are behind a redirect and don't set this to "true",
+        the IP address you'll see for your beacons will be that of your redirector and not the
+        beacon's egress IP.
 
 	'''
 
