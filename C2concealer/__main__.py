@@ -47,7 +47,7 @@ def main():
 	parser.add_argument('--variants', default=1, type=int, help="Enter the count of http client/server \
 		variants to create.")
 	parser.add_argument('--hostname', type=str, help="Enter the hostname used for domain fronting or redirection")
-	parser.add_argument('--doh', action='store_true', help="Generate profile using DNS-over-HTTPS (requires CS 4.3+)")
+	parser.add_argument('--doh', action='store_true', help="Generate profile using DNS-over-HTTPS (requires CS 4.11+)")
 	#parser.add_argument('--debug', action='store_true')
 
 	args = parser.parse_args()
