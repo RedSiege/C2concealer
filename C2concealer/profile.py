@@ -30,7 +30,7 @@ class Profile(object):
 		  "User-Agent" during the printify() function.
 	'''
 
-	def __init__(self, ssl_dict, name='default', hostname=None):
+	def __init__(self, ssl_dict, name='default', hostname=None, use_doh=False):
 		self.globalOptions = globaloptions.globalOptions()
 		self.dnsOptions = dnsoptions.dnsOptions() 
 		self.smbOptions = smboptions.smbOptions()
@@ -48,6 +48,7 @@ class Profile(object):
 		self.componentOrder = ['globalOptions', 'dnsOptions', 'smbOptions', 'sslOptions', 'httpConfig','getClient', 'getServer',\
 		'postClient', 'postServer', 'stagerClient', 'stagerServer', 'stageBlock', 'processInject', 'postEx']
 		self.profileString = ""
+		self.use_doh = use_doh
 
 	def randomizer(self):
 		
@@ -68,6 +69,8 @@ class Profile(object):
 			val = getattr(self,component)
 			if component == "getServer":
 				val.randomizer(self.getClient.uri)
+			elif component == "dnsOptions":
+				val.randomizer(use_doh=self.use_doh)
 			else:
 				val.randomizer()
 

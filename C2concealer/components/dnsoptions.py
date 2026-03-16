@@ -37,8 +37,10 @@ class dnsOptions(object):
         self.put_metadata = None
         self.put_output = None
         self.ns_response = "zero"
+        self.comm_mode = None
+        self.doh_options = None
 
-    def randomizer(self):
+    def randomizer(self, use_doh=False):
         
         '''
         Method to generate random dnsOptions values.
@@ -74,6 +76,20 @@ class dnsOptions(object):
         self.put_metadata = str(random.choice(dns.normal_subdomains)) + "."
         self.put_output = str(random.choice(dns.normal_subdomains)) + "."
 
+        if use_doh:
+            self.comm_mode = "dns-over-https"
+            self.doh_options = {
+                'settings': {
+                    'doh_server': random.choice(dns.doh_servers),
+                    'doh_verb': random.choice(['GET', 'POST']),
+                    'doh_useragent': random.choice(dns.doh_useragents),
+                },
+                'headers': [
+                    ('Accept', 'application/dns-message'),
+                    ('Content-Type', 'application/dns-message'),
+                ]
+            }
+
 
     def printify(self):
 
@@ -91,8 +107,17 @@ class dnsOptions(object):
 
         '''
 
-        profileString = '''dns-beacon {\n'''
+        profileString = 'dns-beacon {\n'
         for attr, value in self.__dict__.items():
-            profileString += 'set ' + attr + ' "' + value + '";\n'
+            if attr == 'doh_options' or value is None:
+                continue
+            profileString += '\tset ' + attr + ' "' + value + '";\n'
+        if self.doh_options:
+            profileString += '\tdns-over-https {\n'
+            for key, val in self.doh_options['settings'].items():
+                profileString += '\t\tset ' + key + ' "' + val + '";\n'
+            for hname, hval in self.doh_options['headers']:
+                profileString += '\t\theader "' + hname + '" "' + hval + '";\n'
+            profileString += '\t}\n'
         profileString += '}\n\n'
-        return profileString 
+        return profileString

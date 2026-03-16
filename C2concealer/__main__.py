@@ -47,6 +47,7 @@ def main():
 	parser.add_argument('--variants', default=1, type=int, help="Enter the count of http client/server \
 		variants to create.")
 	parser.add_argument('--hostname', type=str, help="Enter the hostname used for domain fronting or redirection")
+	parser.add_argument('--doh', action='store_true', help="Generate profile using DNS-over-HTTPS (requires CS 4.3+)")
 	#parser.add_argument('--debug', action='store_true')
 
 	args = parser.parse_args()
@@ -93,16 +94,18 @@ def main():
 	#if args.debug:
 	#	_debug_generateOneProfile(ssl_dict, path)
 	#else:
+	if args.doh:
+		print("[!] --doh requires Cobalt Strike 4.3+")
 	print("[i] Building random C2 malleable profile with " + str(variant_count) + " variants.")
 	retryCount = 0
 	while(retryCount < 10):
-		profile = Profile(ssl_dict, hostname=hostname)
+		profile = Profile(ssl_dict, hostname=hostname, use_doh=args.doh)
 		profile.randomizer()
 		profile.consistencyCheck()
 		profile.buildMainProfile()
 		for i in range(variant_count):
 			varname = "variant_" + str(i+1)
-			variant = Profile(ssl_dict, varname, hostname)
+			variant = Profile(ssl_dict, varname, hostname, use_doh=args.doh)
 			variant.randomizer()
 			variant.consistencyCheck()
 			variant.buildVariant()
