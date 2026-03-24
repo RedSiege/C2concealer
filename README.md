@@ -5,7 +5,8 @@ C2concealer is a command line tool that generates randomized C2 malleable profil
 ## Installation 
 
 ```bash
-chmod u+x install.sh
+python3 -m venv .venv
+source .venv/bin/activate
 ./install.sh
 ```
 
