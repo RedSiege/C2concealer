@@ -1,2 +1,2 @@
-__all__ = ['globaloptions', 'dnsoptions', 'smboptions', 'ssloptions', 'httpconfig', 'getclient', 'getserver',\
+__all__ = ['globaloptions', 'dnsoptions', 'smboptions', 'sshoptions', 'ssloptions', 'httpconfig', 'getclient', 'getserver',\
 'postclient', 'postserver', 'stagerclient', 'stagerserver', 'stageblock', 'processinject', 'postex']

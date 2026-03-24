@@ -34,6 +34,7 @@ class Profile(object):
 		self.globalOptions = globaloptions.globalOptions()
 		self.dnsOptions = dnsoptions.dnsOptions() 
 		self.smbOptions = smboptions.smbOptions()
+		self.sshOptions = sshoptions.sshOptions()
 		self.sslOptions = ssloptions.sslOptions(ssl_dict)
 		self.httpConfig = httpconfig.httpConfig()
 		self.getClient = getclient.getClient(name, hostname)
@@ -45,7 +46,7 @@ class Profile(object):
 		self.stageBlock = stageblock.stageBlock()
 		self.processInject = processinject.processInject()
 		self.postEx = postex.postEx()
-		self.componentOrder = ['globalOptions', 'dnsOptions', 'smbOptions', 'sslOptions', 'httpConfig','getClient', 'getServer',\
+		self.componentOrder = ['globalOptions', 'sshOptions', 'dnsOptions', 'smbOptions', 'sslOptions', 'httpConfig','getClient', 'getServer',\
 		'postClient', 'postServer', 'stagerClient', 'stagerServer', 'stageBlock', 'processInject', 'postEx']
 		self.profileString = ""
 		self.use_doh = use_doh
