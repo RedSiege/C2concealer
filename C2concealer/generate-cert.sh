@@ -97,12 +97,23 @@ func_apache_check(){
 }
 
 func_install_letsencrypt(){
-  echo '[Starting] cloning into letsencrypt!'
-  git clone https://github.com/certbot/certbot /opt/letsencrypt
-  echo '[Success] letsencrypt is built!'
-  cd /opt/letsencrypt
-  echo '[Starting] to build letsencrypt cert!'
-  ./letsencrypt-auto --apache -d $domain -n --register-unsafely-without-email --agree-tos 
+  # test if snap/apt is available
+  snapbin=$(which snap)
+  aptbin=$(which apt)
+  if [ -f ${snapbin} ] ; then
+          echo '[Success] found snap.'
+          echo 'Installing certbot via snap.'
+          ${snapbin} install --classic certbot
+  elif [ -f ${aptbin} ] ; then
+          echo '[Success] found apt.'
+          echo 'Installing certbot via apt.'
+          ${aptbin} install -y certbot
+  else
+          echo '[ERROR] Neither snap nor apt are available!'
+          echo 'You must install certbot manually before continuing.'
+          exit 1
+  fi
+
   if [ -e /etc/letsencrypt/live/$domain/fullchain.pem ]; then
     echo '[Success] letsencrypt certs are built!'
     service apache2 stop
