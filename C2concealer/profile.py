@@ -80,7 +80,7 @@ class Profile(object):
 		
 		'''
 		Method for checking consistency for situations where
-		one indicator should dicatate another indicator's value.
+		one indicator should dictate another indicator's value.
 
 		[1] In stagerclient.py add file type to URIs based on stagerserver.Content_Type
 		'''
@@ -126,7 +126,7 @@ class Profile(object):
 		Method for writing profile string to an output file.
 		
 		Method creates a new file located in the cwd named with the 8-char UUID "sample_name"
-		generated in /C2generator/components/globaloptions.py. Method calls the file.write()
+		generated in /C2concealer/components/globaloptions.py. Method calls the file.write()
 		function on self.profileString to write to the file.
 
 		Output: A file written in the cwd with new profile. 
@@ -143,7 +143,7 @@ class Profile(object):
 		Method for building a C2 malleable profile for Cobalt Strike.
 
 		Method loops through the printify() method defined in each 
-		profile sub-component (located in C2generator/components/) creating
+		profile sub-component (located in C2concealer/components/) creating
 		a long string of the entire profile. 
 
 		Output: A string filled with profile details formatted with line breaks 
