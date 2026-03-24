@@ -97,8 +97,10 @@ def main():
 	if args.doh:
 		print("[!] --doh requires Cobalt Strike 4.3+")
 	print("[i] Building random C2 malleable profile with " + str(variant_count) + " variants.")
-	retryCount = 0
-	while(retryCount < 10):
+
+	# Loop continuously until we generate a good profile
+	passed = False
+	while not passed:
 		profile = Profile(ssl_dict, hostname=hostname, use_doh=args.doh)
 		profile.randomizer()
 		profile.consistencyCheck()
@@ -126,13 +128,7 @@ def main():
 			if "Please run the 'update' program " in lintResults:
 				print("[x] You need to run the 'update' program from within CobaltStrike before c2lint will run.")
 				sys.exit()
-			retryCount+=1
-			os.remove((os.getcwd() + '/' + profile.globalOptions.sample_name + '.profile'))	
-
-		print("[-] Attempted to create 10 profiles. All 10 failed c2lint check.")
-		print("[i] If you selected a large amount of variants, please retry again.")
-		print("[x] Exiting program.")
-		sys.exit()
+			os.remove((os.getcwd() + '/' + profile.globalOptions.sample_name + '.profile'))
 
 
 if __name__ == '__main__':
