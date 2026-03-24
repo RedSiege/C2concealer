@@ -74,7 +74,7 @@ class postClient(object):
 
 		self.id.append('base64')
 		#CUSTOMIZE this prepend value#
-		self.id.append('prepend "__session__id="')
+		self.id.append('prepend "' + random.choice(reg_headers.cookie_prefixes) + '="')
 		self.id.append('header "Cookie"')
 
 		self.output.append(random.choice(transform.transformations))

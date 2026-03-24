@@ -9,13 +9,12 @@ accept_encoding, and accept_language.
 
 '''
 #CUSTOMIZE WITH YOUR OWN SERVER STRINGS#
-server = ['Apache','nginx','apache', 'ESF','cloudflare','golfe2','Pagely Gateway/1.5.1']
+server = ['Apache','nginx','apache','Microsoft-IIS/10.0','ESF','cloudflare','openresty','LightSpeed','gws','gunicorn/25.1.0']
 
 #CUSTOMIZE WITH YOUR OWN COOKIE NAMES#
-cookie_prefixes = ['LSID', 'HSID', 'SSID', 'made_write_conn', 'reg_fb_gate', 'lu', 'affiliate_id', 'wordpress_52238558e930f1ec699e4f12ab015a4f',
-'wordpress_ed1f617bbd6c004cc09e046f3c1b7148', 'wordpress_d6c0405e0d7ab18fd4e6a0b74fce40b0', 'wordpress_logged_in',
-'wordpress_logged_in_1870a829d9bc69abf500eca6f00241fe', 'woocommerce_cart_hash', 'woocommerce_items_in_cart',
-'wp_woocommerce_session_']
+cookie_prefixes = ['PHPSESSID','JSESSIONID','wordpress_ed1f617bbd6c004cc09e046f3c1b7148','wordpress_d6c0405e0d7ab18fd4e6a0b74fce40b0',
+                   '_utma','connect.sid','remember_token','remember_me_token','_hJsession','_hjid','OptanonConsent','_stripe_mid',
+                   '_stripe_sid','auth','LSID','HSID','lu','affiliate_id','XSRF-TOKEN','csrf_token']
 
 cookie_suffixes = ['secure', 'path=/', 'HttpOnly']
 
