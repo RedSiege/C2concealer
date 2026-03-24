@@ -26,7 +26,7 @@ def main():
 	generated profile to validate it. If it's a valid profile, the IoC preview generated
 	by c2lint is outputted to stdout along with a summary. If the profile fails validation,
 	then the profile is removed from disk and the process is repeated (max 10 times). If after
-	10 attempts no profile is valid, the program will exit. This shouldn't happen often, but if it doesn
+	10 attempts no profile is valid, the program will exit. This shouldn't happen often, but if it does,
 	just run it again.
 
 	Output: a validated C2 malleable profile
