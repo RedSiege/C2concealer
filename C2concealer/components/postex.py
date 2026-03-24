@@ -25,6 +25,7 @@ class postEx(object):
 		self.obfuscate = None
 		self.smartinject = None
 		self.amsi_disable = None
+		self.cleanup = None
 
 	def randomizer(self):
 		
@@ -44,6 +45,7 @@ class postEx(object):
 		self.obfuscate = "true"
 		self.smartinject = "true"
 		self.amsi_disable = "true"
+		self.cleanup = "true"
 
 
 	def printify(self):
