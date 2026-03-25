@@ -25,9 +25,7 @@ def main():
 	function runs CobaltStrike's c2lint application against the newly
 	generated profile to validate it. If it's a valid profile, the IoC preview generated
 	by c2lint is outputted to stdout along with a summary. If the profile fails validation,
-	then the profile is removed from disk and the process is repeated (max 10 times). If after
-	10 attempts no profile is valid, the program will exit. This shouldn't happen often, but if it does,
-	just run it again.
+	then the profile is removed from disk and the process is repeated until a successful profile generation.
 
 	Output: a validated C2 malleable profile
 
@@ -44,7 +42,7 @@ def main():
 	filled with randomized data for use with Cobalt Strike.")
 	parser.add_argument('-h', '-?', '--h', '-help', '--help', action="store_true",
 	help=argparse.SUPPRESS)
-	parser.add_argument('--variants', default=1, type=int, help="Enter the count of http client/server \
+	parser.add_argument('--variants', default=0, type=int, help="Enter the count of http client/server \
 		variants to create.")
 	parser.add_argument('--hostname', type=str, help="Enter the hostname used for domain fronting or redirection")
 	parser.add_argument('--doh', action='store_true', help="Generate profile using DNS-over-HTTPS (requires CS 4.11+)")
