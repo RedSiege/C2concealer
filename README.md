@@ -9,16 +9,11 @@ git clone https://github.com/RedSiege/C2concealer
 cd C2concealer
 python3 -m venv .venv
 source .venv/bin/activate
-./install.sh
+pip3 install -e .
 ```
 
-## Building Docker image
-
-```docker build -t C2concealer .```
-
-## Running with Docker
-
-```docker container run -it -v <cobalt_strike_location>:/usr/share/cobaltstrike/ C2concealer --hostname google.com --variant 3```
+## Docker installation
+Refer to the [Docker instructions](https://github.com/RedSiege/C2concealer/DOCKER.md)
 
 ## Example Usage
 
@@ -59,7 +54,7 @@ Choose an SSL option:
 
 ## How it works
 
-We poured over the Cobalt Strike documentation and defined ranges of values that would make sense for each profile attribute. Sometimes that data is as simple as a random integer within some range and other times we need to pick a random value from a python dictionary. Either way, we started tool creation with defining the data that would make a valid profile. 
+We pored over the Cobalt Strike documentation and defined ranges of values that would make sense for each profile attribute. Sometimes that data is as simple as a random integer within some range and other times we need to pick a random value from a python dictionary. Either way, we started tool creation with defining the data that would make a valid profile. 
 
 Then we divided each malleable profile section (or block) into a separate .py file, which contains the logic to draw random appropriate values for each attribute and then output a formatted string for that profile block. We concatenate all profile blocks together, run a few quick consistency checks and then run the profile through the Cobalt Strike linter (c2lint). The output is a profile that *should* work for your engagements. We always recommend testing the profile (including process injection and spawning) prior to running a campaign.
 
@@ -94,3 +89,11 @@ Version 1.0
 - Public version of FortyNorth Security's internal tool.
 - Added support for CS 4.0 (specifically multiple HTTP variants)
 - Updated README.md
+
+Version 1.1
+- Updated to include profile options supported by CS 4.12
+- Updated browser UA strings
+- Updated cookie strings to modern commonly-observed cookies
+- Added SSH banner and SSH pipename options
+- Updated Docker installation guidance
+- Fixed Let's Encrypt support
