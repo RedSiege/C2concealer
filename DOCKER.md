@@ -1,3 +1,9 @@
+# C2Concealer Docker guide
+> **⚠️ Docker Support Status: Experimental**
+> 
+> Docker functionality is currently under development and may not work as expected. 
+> For reliable usage, please use the native installation options documented in README.md.
+
 ## Building Docker image
 
 ```bash
