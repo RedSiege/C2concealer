@@ -27,7 +27,7 @@ user_agent = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHT
 "Mozilla/5.0 (Linux; Android 16) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.7680.154 Mobile Safari/537.36",
 "Mozilla/5.0 (Android 16; Mobile; rv:68.0) Gecko/68.0 Firefox/148.0",
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.3856.78",
-"Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
+"Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko"
 ]
 
 #CUSTOMIZE WITH YOUR OWN ACCEPT VALUES#
@@ -35,13 +35,13 @@ accept = ["text/html",
 "*/*",
 ]
 
-accept_stager = ["*/*", "image/*","image/jpeg",]
+accept_stager = ["*/*", "image/*","image/jpeg"]
 
 #CUSTOMIZE WITH YOUR OWN ACCEPT ENCODING VALUES#
 accept_encoding = ['gzip, br', 'gzip', 'br']
 
 #CUSTOMIZE WITH YOUR OWN ACCEPT LANGUAGE VALUES#
-accept_language = ['en-US', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5', 'en-GB;q=0.9, *;q=0.7',]
+accept_language = ['en-US', 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5', 'en-GB;q=0.9, *;q=0.7']
 
 #CUSTOMIZE WITH YOUR OWN CONTENT ENCODING VALUES#
-content_encoding = ['gzip', 'deflate', 'br',]
+content_encoding = ['gzip', 'deflate', 'br']

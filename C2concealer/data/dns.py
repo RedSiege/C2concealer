@@ -16,7 +16,7 @@ doh_servers = [
     'dns.google',
     'dns.quad9.net',
     'dns.adguard.com',
-    'doh.opendns.com',
+    'doh.opendns.com'
 ]
 
 doh_useragents = [
@@ -24,5 +24,5 @@ doh_useragents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36',
     'curl/8.18.0',
-    'dnscrypt-proxy/2.1.5',
+    'dnscrypt-proxy/2.1.5'
 ]
