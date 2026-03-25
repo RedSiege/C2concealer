@@ -8,6 +8,7 @@ import fnmatch
 import string
 from .helpers import chooseSSL, _debug_generateOneProfile, find, variantCountSelection
 
+__version__ = 1.1
 
 def main():
 
@@ -45,11 +46,12 @@ def main():
 	parser.add_argument('--variants', default=0, type=int, help="Enter the count of http client/server \
 		variants to create.")
 	parser.add_argument('--hostname', type=str, help="Enter the hostname used for domain fronting or redirection")
-	parser.add_argument('--doh', action='store_true', help="Generate profile using DNS-over-HTTPS (requires CS 4.11+)")
+	parser.add_argument('--doh', action='store_true', help="Generate profile using DNS-over-HTTPS")
 	#parser.add_argument('--debug', action='store_true')
 
 	args = parser.parse_args()
 	if args.h:
+		print(f"C2Concealer Version: {__version__}")
 		parser.print_help()
 		sys.exit()
 
@@ -92,8 +94,6 @@ def main():
 	#if args.debug:
 	#	_debug_generateOneProfile(ssl_dict, path)
 	#else:
-	if args.doh:
-		print("[!] --doh requires Cobalt Strike 4.3+")
 	print("[i] Building random C2 malleable profile with " + str(variant_count) + " variants.")
 
 	# Loop continuously until we generate a good profile
