@@ -18,6 +18,7 @@ class sshOptions(object):
 
 	def __init__(self):
 		self.ssh_pipename = None
+		self.ssh_banner = None
 
 
 	def randomizer(self):
@@ -26,13 +27,14 @@ class sshOptions(object):
 		Method to generate random smbOptions values.
 		
 		1. ssh_pipename chooses a random pipename from list in /data/ssh.py
+		2. ssh_banner chooses a random banner from list in /data/ssh.py
 
 		Output: sshOptions instance attributes are populated with random data.
 
 		'''
 
-		#pipenames = random.sample(ssh.pipenames, 1)
 		self.ssh_pipename = str(random.sample(ssh.pipenames, 1)[0])
+		self.ssh_banner = str(random.sample(ssh.banners, 1)[0])
 
 
 	def printify(self):
