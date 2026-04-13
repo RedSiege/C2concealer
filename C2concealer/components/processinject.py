@@ -22,6 +22,8 @@ class processInject(object):
 
 	def __init__(self):
 		self.allocator = None
+		self.bof_allocator = None
+		self.bof_reuse_memory = None
 		self.min_alloc = None
 		self.userwx = None
 		self.startrwx = None
@@ -39,6 +41,8 @@ class processInject(object):
 		'''
 		
 		self.allocator = "VirtualAllocEx"
+		self.bof_allocator = "VirtualAlloc"
+		self.bof_reuse_memory = "true"
 		self.min_alloc = str(random.choice((list(range(4096,16383))+list(range(16385,32000)))))
 		self.userwx = "false"
 		self.startrwx = "false"

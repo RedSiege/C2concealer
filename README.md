@@ -5,17 +5,15 @@ C2concealer is a command line tool that generates randomized C2 malleable profil
 ## Installation 
 
 ```bash
-chmod u+x install.sh
-./install.sh
+git clone https://github.com/RedSiege/C2concealer.git
+cd C2concealer
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -e .
 ```
 
-## Building Docker image
-
-```docker build -t C2concealer .```
-
-## Running with Docker
-
-```docker container run -it -v <cobalt_strike_location>:/usr/share/cobaltstrike/ C2concealer --hostname google.com --variant 3```
+## Docker installation
+Refer to the [Docker instructions](https://github.com/RedSiege/C2concealer/DOCKER.md)
 
 ## Example Usage
 
@@ -50,36 +48,97 @@ Choose an SSL option:
 ```
 
 > Tip: Always use an SSL certificate. Preferably a cert from LetsEncrypt or similar.
-
-
 > Tip: HTTP Variants allow you to select different IOCs for http traffic on different beacons. Recommend a value of at least 1. 
 
 ## How it works
 
-We poured over the Cobalt Strike documentation and defined ranges of values that would make sense for each profile attribute. Sometimes that data is as simple as a random integer within some range and other times we need to pick a random value from a python dictionary. Either way, we started tool creation with defining the data that would make a valid profile. 
+We pored over the Cobalt Strike documentation and defined ranges of values that would make sense for each profile attribute. Sometimes that data is as simple as a random integer within some range and other times we need to pick a random value from a Python dictionary. Either way, we started tool creation with defining the data that would make a valid profile. 
 
 Then we divided each malleable profile section (or block) into a separate .py file, which contains the logic to draw random appropriate values for each attribute and then output a formatted string for that profile block. We concatenate all profile blocks together, run a few quick consistency checks and then run the profile through the Cobalt Strike linter (c2lint). The output is a profile that *should* work for your engagements. We always recommend testing the profile (including process injection and spawning) prior to running a campaign.
 
-If you're looking into the code, we recommend starting with these two files: /C2concealer/__main__.py and /C2concealer/profile.py. After reviewing the comments, check out individuals profile block generators in the folder: /C2concealer/components.
+If you're looking into the code, we recommend starting with these two files: /C2concealer/\_\_main__.py and /C2concealer/profile.py. After reviewing the comments, check out individual profile block generators in the folder: /C2concealer/components.
 
 ## Customizing the tool
 
-This is crucial. This is an open sourced version of a tool we've been using privately for about a year. Our private repo has several additional IOCs and a completely different data set. While running the tool provides an excellent start for building a Cobalt Strike malleable profile, we recommend digging into the following areas to customize the data that is randomly populating the tool:
+This is crucial. This is an open source tool. Vendors can easily write signatures for the profiles it generates. While running the tool provides an excellent start for building a Cobalt Strike malleable profile, we recommend digging into the following areas to customize the data that is used to populate generated profiles:
 
 /C2concealer/data/
 - dns.py (customize the dns subdomains)
-- file_type_prepend.py (customize how http-get-server repsonses look ... aka c2 control instructions)
+- file_type_prepend.py (customize how http-get-server responses look ... aka c2 control instructions)
 - params.py (two dictionaries containing common parameter names and a generic wordlist)
-- post_ex.py (spawn_to process list...definitely change this one)
+- post_ex.py (spawn_to process list... **definitely change this one**)
 - reg_headers.py (typical http headers like user-agent and server)
-- smb.py (smb pipenames for use when comms go over smb)
+- smb.py (smb pipe names for use when comms go over smb)
+- ssh.py (ssh pipe and banner names when using SSH beacons)
 - stage.py (data for changing IOCs related to the stager)
 - transform.py (payload data transformations...no need to change this)
-- urls.py (filetypes and url path components used for building URIs all across the tool...definitely change this)
+- urls.py (filetypes and url path components used for building URIs all across the tool... **definitely change this**)
 
-In addition, you can customize various attributes all throughout the profile generation process. As an example, in the file: "/C2concealer/components/stageblock.py", you can change the range from which PE image size value is drawn from (near lines 73-74). Please look through all the different files in the components directory. 
+In addition, you can customize various attributes all throughout the profile generation process. As an example, in the file: `/C2concealer/components/stageblock.py`, you can change the range from which PE image size value is drawn from (near lines 73-74). Please look through all the different files in the components directory. 
 
-If you've made it this far, then we know you'll get a lot of use out of this tool. The way we recommend viewing this tool is that we've built the skeleton code to automatically generate these profiles, now it's up to you to think through what values make sense for each attribute for your campaigns and update the data sources.
+If you've made it this far, then we know you'll get a lot of use out of this tool. The way we recommend viewing this tool is that we've built the skeleton code to automatically generate these profiles. Now it's up to you to think through what values make sense for each attribute for your campaigns and update the data sources.
+
+## Further customizing your profile
+While we've covered a lot of possible options for the Malleable C2 profile language, there are many options we do not set. We highly encourage you to consult the [Malleable Command and Control documentation](https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/malleable-c2_main.htm#_Toc65482834) and modify your profile.
+
+The following options are not set, or are set statically by C2concealer and you should consider changing them.
+
+### `http-config` Block
+| Missing Option | Notes |
+|---|---|
+| `set block_useragents` | Block non-beacon UA patterns |
+| `set allow_useragents` | Allowlist UA patterns (CS 4.3+) |
+
+### `stage` Block
+| Missing Option | Notes |
+|---|---|
+| `set allocator` | Hardcoded `VirtualAlloc`; missing `HeapAlloc`, `MapViewOfFile` randomization |
+| `set magic_mz_x86` / `magic_mz_x64` | MZ header spoofing |
+| `set magic_pe` | PE marker spoofing |
+| `set rich_header` | Compiler metadata spoofing |
+| `set module_x86` / `module_x64` | Module stomping |
+| `set copy_pe_header` | — |
+| `set data_store_size` | — |
+| `set eaf_bypass` | EAT check bypass |
+| `set syscall_method` | None/Direct/Indirect (CS 4.8+) |
+| `set rdll_loader` | PrependLoader/StompLoader |
+| `set rdll_use_syscalls` | — |
+| `set rdll_use_driploading` | — |
+| `set rdll_dripload_delay` | — |
+| `transform-obfuscate` block | `base64`, `lznt1`, `rc4`, `xor` options entirely absent |
+| `append` in `transform-x86/x64` | Only `prepend` and `strrep` are used |
+
+### `process-inject` Block
+| Missing Option | Notes |
+|---|---|
+| `set allocator` | Hardcoded `VirtualAllocEx`; missing `NtMapViewOfSection` randomization |
+| `set use_driploading` | — |
+| `set dripload_delay` | — |
+| `append` in `transform-x86/x64` | Only `prepend` used |
+| Execute: `NtQueueApcThread` | Not in execute block |
+| Execute: `NtQueueApcThread-s` | Not in execute block |
+| Execute: `ObfSetThreadContext` | Not in execute block |
+| Execute: `SetThreadContext` | Not in execute block |
+| Execute function spoofing | `module!function+0x##` syntax not supported |
+
+### `post-ex` Block
+| Missing Option | Notes |
+|---|---|
+| `set pipename` | Named pipe for post-ex jobs |
+
+### `dns-beacon` Block
+| Missing Option | Notes                                                            |
+|---|------------------------------------------------------------------|
+| `set ns_response` | `drop`/`idle`/`zero` NS handling. Defaults to `drop` if not set. |
+| `set dns_stager_prepend` | Prepend data to staged payloads                                  |
+
+### Data Transformations (all transform contexts)
+| Missing Transform | Notes |
+|---|---|
+| `lznt1` | Compression — not in any encode chain |
+| `rc4 "key"` | Encryption — not in any encode chain |
+| `xor "key"` | XOR — not in any encode chain |
+| `uri-append` | Termination statement — not implemented |
 
 ## Shoutouts
 
@@ -91,3 +150,11 @@ Version 1.0
 - Public version of FortyNorth Security's internal tool.
 - Added support for CS 4.0 (specifically multiple HTTP variants)
 - Updated README.md
+
+Version 1.1
+- Updated to include profile options supported by CS 4.12
+- Updated browser UA strings
+- Updated cookie strings to modern commonly-observed cookies
+- Added SSH banner and SSH pipename options
+- Updated Docker installation guidance
+- Fixed Let's Encrypt support

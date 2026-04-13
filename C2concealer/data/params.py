@@ -18,7 +18,7 @@ common_params = ['length','goto','company','Comment','close','website','st',
 'invoice','insertonly','full','forum','err','doit','backup','ac','sent','phpThumbDebug',
 'photo','open','interval','editor','echostr','doc','channel','args','agree','access','WPLANG',
 'userspage','usersearch','triggers','insert','inc','homepage','hello','grant','func','duration',
-'did','cookie','contact','chunk','apply','terms',]
+'did','cookie','contact','chunk','apply','terms']
 
 #CREATE A CUSTOM WORDLIST OF YOUR OWN#
 words = ['instrument','thankful','sore','milky','small','snotty','abashed','tour','base',
@@ -29,4 +29,4 @@ words = ['instrument','thankful','sore','milky','small','snotty','abashed','tour
 'ticket','ready','film','feeble','hat','wax','ring','merciful','plane','fuel','overconfident','knock','aromatic',
 'texture','expensive','yak','slip','rings','destruction','island','stitch','scream','burn','school','solid',
 'harass','country','unequaled','talk','wet','avoid','snail','drag','equal','lunch','divergent','helpless',
-'amuse','decorate','porter','connection',]
+'amuse','decorate','porter','connection']

@@ -18,5 +18,5 @@ binary_types = [{'name':'jpg','content_type':'image/jpeg'},
 {'name':'png','content_type':'image/png',},
 {'name':'gif','content_type':'image/gif',},
 {'name':'ico','content_type':'image/x-icon',},
-{'name':'mp3','content_type':'audio/mpeg',},
+{'name':'mp3','content_type':'audio/mpeg',}
 ]

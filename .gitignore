@@ -1,0 +1,6 @@
+# Ignore PyCharm directory
+.idea
+
+# Ignore pycache artifacts
+C2concealer.egg-info
+__pycache__

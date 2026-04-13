@@ -22,8 +22,11 @@ class globalOptions(object):
 	def __init__(self):
 		self.sample_name = None
 		self.sleeptime = None
+		self.data_jitter = None
 		self.jitter = None
 		self.tcp_port = None
+		self.tcp_frame_header = None
+		self.smb_frame_header = None
 		self.useragent = None
 
 	def randomizer(self):
@@ -33,9 +36,12 @@ class globalOptions(object):
 		
 		1. sample_name set to first 8 chars from the uuid.uuid4() func
 		2. sleeptime is set to a random integer between 55000ms and 65000ms
-		3. jitter is set to an odd number between 37 and 45 (%)
-		4. tcp_port is randomly selected between 1024-10000 (not 4443-4446)
-		5. User agent is randomly selected 
+		3. data_jitter is set to an even number between 14 and 40 (%)
+		4. jitter is set to an odd number between 37 and 45 (%)
+		5. tcp_port is randomly selected between 1024-10000 (not 4443-4446)
+		6. tcp_frame_header is a randomly selected value between 10 and 100 (hex)
+		7. smb_frame_header is a randomly selected value between 10 and 100 (hex)
+		8. User agent is randomly selected
 
 		Output: globalOptions instance attributes are populated with random data.
 
@@ -43,8 +49,11 @@ class globalOptions(object):
 		
 		self.sample_name = str(uuid.uuid4())[:8]
 		self.sleeptime = str(random.randint(55000,65000))
+		self.data_jitter = str(random.randrange(14, 40, 2))
 		self.jitter = str(random.randrange(37,45,2))
 		self.tcp_port = str(random.choice((list(range(1024,4442))+list(range(4447,10000)))))
+		self.tcp_frame_header = str("\\x{0:x}".format(random.randrange(10,100,1)))
+		self.smb_frame_header = str("\\x{0:x}".format(random.randrange(10, 100, 1)))
 		self.useragent = random.choice(reg_headers.user_agent)
 
 	def printify(self):
@@ -59,8 +68,11 @@ class globalOptions(object):
 
 		set sample_name "UUID-UUID";
 		set sleeptime "60";
+		set data_jitter "45";
 		set jitter "50";
 		set tcp_port 34857;
+		set tcp_frame_header "\x47";
+		set smb_frame_header "\x1e";
 		set useragent "Mozilla 5.0";
 
 		'''
